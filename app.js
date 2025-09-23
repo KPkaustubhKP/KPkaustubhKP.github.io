@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initContactForm();
     initTypewriter();
     initBlogCards();
-    initPhotoUpload();
     initResumeDownload();
 
     // Blog page specific functionality
@@ -139,63 +138,6 @@ function initNewsletterForm() {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
         }, 1500);
-    });
-}
-
-// Photo Upload Functionality
-function initPhotoUpload() {
-    const uploadBtn = document.getElementById('upload-photo-btn');
-    const photoInput = document.getElementById('photo-input');
-    const profilePhoto = document.getElementById('profile-photo');
-    const placeholder = document.getElementById('photo-placeholder');
-
-    if (!uploadBtn || !photoInput || !profilePhoto || !placeholder) return;
-
-    // Check for saved photo in localStorage
-    const savedPhoto = localStorage.getItem('profilePhoto');
-    if (savedPhoto) {
-        profilePhoto.src = savedPhoto;
-        profilePhoto.style.display = 'block';
-        placeholder.style.display = 'none';
-        uploadBtn.textContent = 'Change Photo';
-    }
-
-    uploadBtn.addEventListener('click', function() {
-        photoInput.click();
-    });
-
-    photoInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            // Validate file type
-            if (!file.type.startsWith('image/')) {
-                showNotification('Please select a valid image file', 'error');
-                return;
-            }
-
-            // Validate file size (max 5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                showNotification('Image size should be less than 5MB', 'error');
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const imageData = e.target.result;
-
-                // Display the image
-                profilePhoto.src = imageData;
-                profilePhoto.style.display = 'block';
-                placeholder.style.display = 'none';
-                uploadBtn.textContent = 'Change Photo';
-
-                // Save to localStorage
-                localStorage.setItem('profilePhoto', imageData);
-                showNotification('Profile photo updated successfully!', 'success');
-            };
-
-            reader.readAsDataURL(file);
-        }
     });
 }
 
@@ -624,6 +566,6 @@ window.addEventListener('error', function(e) {
 
 // Log successful initialization
 console.log('🚀 Enhanced Portfolio loaded successfully!');
-console.log('✨ Features: Blog page support, Fixed theme toggle, Photo upload, Resume download, Enhanced animations');
+console.log('✨ Features: Blog page support, Fixed theme toggle, Enhanced animations');
 console.log('📧 Contact: kaustubhofficial.kp@gmail.com');
 console.log('📄 Resume: Direct download from GitHub');
