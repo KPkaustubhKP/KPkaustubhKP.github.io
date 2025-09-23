@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSDSquadron Ultra Journey - Kaustubh Pandey</title>
+    <meta name="description" content="My experience working with Yatharth Agarwal on the VSDSquadron Ultra board based on Thejas32 chip - Wi-Fi clearance challenges, BOM creation, and collaborative engineering.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .blog-post {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.7;
+        }
+        .blog-post h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .blog-post h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem 0;
+            color: var(--text-primary);
+        }
+        .blog-post h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.8rem 0;
+            color: var(--text-primary);
+        }
+        .blog-post p {
+            margin-bottom: 1.2rem;
+            color: var(--text-secondary);
+        }
+        .blog-post strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .blog-meta {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="nav-logo">KP</a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+                <li><a href="blogs.html" class="nav-link">Blogs</a></li>
+                <li><a href="index.html#resume" class="nav-link">Resume</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-controls">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-toggle-icon">🌙</span>
+                </button>
+            </div>
+            <div class="nav-hamburger" id="nav-hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <article class="blog-post">
+            <a href="blogs.html" class="back-link">← Back to Blogs</a>
+            
+            <h1>My Journey with VSDSquadron Ultra: Learning Hardware Design Through Collaboration</h1>
+            
+            <div class="blog-meta">
+                Published on September 24, 2025 • 5 min read • Hardware Engineering
+            </div>
+
+            <p>Working with <strong>Yatharth Agarwal</strong> on the VSDSquadron Ultra board powered by the <strong>Thejas32 chip</strong> turned out to be one of my most enlightening experiences in hardware design. This project taught me invaluable lessons about Wi-Fi module clearances, proper BOM creation, and the intricacies of collaborative engineering work.</p>
+
+            <h2>The VSDSquadron Ultra Foundation</h2>
+
+            <p>The VSDSquadron Ultra is India's indigenous RISC-V development board featuring the <strong>Thejas32 SoC</strong> powered by C-DAC's VEGA ET1031 processor. This 32-bit RISC-V processor operates at 100 MHz and includes impressive specifications: 256KB internal SRAM, multiple communication interfaces (3 UARTs, 4 SPIs, 3 I2Cs), and crucially for our project, integrated Wi-Fi and Bluetooth capabilities via an ESP32-C3 module.</p>
+
+            <h2>The Wi-Fi Clearance Challenge</h2>
+
+            <p>Our biggest technical hurdle came from the <strong>Wi-Fi module clearance requirements</strong>. What seemed like a simple component placement turned into a crash course in RF design principles. The ESP32-C3 Wi-Fi module demanded strict clearance zones that we initially underestimated.</p>
+
+            <p>We discovered that <strong>proper antenna placement requires at least 15mm clearance from any copper pours, traces, or components</strong>. This "keep-out zone" must extend through all PCB layers, not just the top layer where the antenna sits. Our initial layout violated these requirements, placing components too close to the Wi-Fi antenna and creating interference issues.</p>
+
+            <p>The problem manifested as <strong>poor signal strength and unreliable connectivity</strong>. We learned that even small violations of clearance requirements can shift the antenna's resonant frequency or dampen its efficiency significantly. The solution required redesigning our component placement, ensuring the Wi-Fi module was positioned at the board edge with adequate space around it.</p>
+
+            <h2>Mastering BOM Creation</h2>
+
+            <p>Creating a proper <strong>Bill of Materials (BOM)</strong> proved more complex than expected. Initially, our BOM was incomplete and inconsistent, causing confusion during procurement and assembly phases.</p>
+
+            <p>A comprehensive electronics BOM must include:</p>
+            <p><strong>• Component names and descriptions</strong><br>
+            <strong>• Part numbers</strong> (manufacturer and supplier)<br>
+            <strong>• Quantities required</strong><br>
+            <strong>• Reference designators</strong> mapping to PCB locations<br>
+            <strong>• Package types and values</strong><br>
+            <strong>• Datasheet references</strong><br>
+            <strong>• Cost estimates</strong></p>
+
+            <p>We learned that the BOM serves as the <strong>communication bridge between different departments</strong> – design, procurement, manufacturing, and assembly teams all rely on this document. Our improved BOM process included using templates from manufacturers, providing detailed component specifications, and maintaining version control as the design evolved.</p>
+
+            <h2>The Power of Collaborative Engineering</h2>
+
+            <p>Working with Yatharth taught me that <strong>collaborative hardware development requires more than just sharing files</strong>. Effective collaboration demands structured workflows, clear communication protocols, and proper tool integration.</p>
+
+            <p>Key collaboration principles we implemented:</p>
+            <p><strong>• Regular check-ins</strong> to share progress and resolve questions<br>
+            <strong>• Clear role definitions</strong> and responsibilities<br>
+            <strong>• Shared project objectives</strong> and timelines<br>
+            <strong>• Documentation standards</strong> for design decisions</p>
+
+            <p>We used <strong>cloud-based platforms for real-time design sharing</strong>, enabling simultaneous work on different aspects of the project without conflicts. This parallel development approach significantly accelerated our progress.</p>
+
+            <h2>Technical Lessons Learned</h2>
+
+            <p>Beyond the immediate challenges, this project reinforced several fundamental principles:</p>
+
+            <p><strong>Antenna Design</strong>: Understanding that Wi-Fi performance depends heavily on proper PCB layout, not just the antenna component itself. Ground plane management and impedance matching are critical for reliable wireless performance.</p>
+
+            <p><strong>BOM Management</strong>: Recognizing that a well-structured BOM prevents costly manufacturing delays and component sourcing issues. Version control and detailed specifications are essential as designs evolve.</p>
+
+            <p><strong>Collaborative Workflows</strong>: Appreciating that <strong>hardware development is inherently collaborative</strong>, requiring coordination between electrical, mechanical, and software teams. Tools and processes must support this multidisciplinary approach.</p>
+
+            <h2>Looking Forward</h2>
+
+            <p>This experience with the VSDSquadron Ultra and Thejas32 platform demonstrated India's growing capabilities in indigenous semiconductor development. Working alongside talented engineers like Yatharth showed me how collaborative approaches can overcome complex technical challenges more effectively than isolated work.</p>
+
+            <p>The project reinforced that successful hardware development requires balancing technical excellence with strong teamwork skills. Whether dealing with RF clearance issues or managing comprehensive BOMs, the combination of solid engineering fundamentals and effective collaboration creates the foundation for innovative hardware solutions.</p>
+
+            <p>This journey taught me that <strong>learning happens best through collaborative problem-solving</strong>, where different perspectives and expertise combine to tackle complex challenges. The VSDSquadron Ultra project became more than just a hardware design exercise – it was a masterclass in engineering teamwork and technical problem-solving.</p>
+
+        </article>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Kaustubh Pandey. Built with passion for VLSI design and innovation.</p>
+                <div class="footer-links">
+                    <a href="mailto:kaustubhofficial.kp@gmail.com" class="footer-icon" aria-label="Email">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/kaustubh-pandey-b42082218" target="_blank" class="footer-icon" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://github.com/KPkaustubhKP" target="_blank" class="footer-icon" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>
