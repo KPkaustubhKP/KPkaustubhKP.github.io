@@ -34,7 +34,7 @@ const Splash = () => {
 
   useEffect(() => {
     const typed = new Typed(name.current, {
-      strings: ["cau. "],
+      strings: ["kp. "],
       startDelay: 600,
       typeSpeed: 140,
     });
