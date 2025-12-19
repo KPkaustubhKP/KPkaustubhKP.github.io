@@ -79,25 +79,27 @@ const TopLeft = styled.div`
 `;
 
 const Name = styled.h1`
-  font-size: 48px;
-  font-weight: 300;
+  font-size: 56px;
+  font-weight: 200;
   color: #ffffff;
   margin: 0 0 0.5rem 0;
   letter-spacing: -1px;
+  font-family: 'Inter', sans-serif;
 `;
 
 const Role = styled.p`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   color: #999999;
   margin: 0;
   letter-spacing: 0.5px;
+  font-family: 'Inter', sans-serif;
 `;
 
-const BottomLeft = styled.div`
+const NavContainer = styled.div`
   position: absolute;
   left: 3rem;
-  bottom: 3rem;
+  top: 15rem;
   animation: ${slideInLeft} 0.8s ease-in-out 0.8s forwards;
   opacity: 0;
   z-index: 100;
@@ -122,6 +124,7 @@ const BioText = styled.p`
   line-height: 1.6;
   margin: 0 0 0.5rem 0;
   letter-spacing: 0.3px;
+  font-family: 'Inter', sans-serif;
 `;
 
 const NavMenu = styled.ul`
@@ -138,6 +141,7 @@ const NavItem = styled.li`
   transition: all 0.3s ease;
   color: #ffffff;
   font-size: 14px;
+  font-family: 'Inter', sans-serif;
 
   a {
     text-decoration: none;
@@ -157,6 +161,23 @@ const NavItem = styled.li`
   }
 `;
 
+const NavIndicator = styled.span`
+  display: inline-block;
+  transition: all 0.3s ease;
+  
+  &.active {
+    &::before {
+      content: "•";
+      font-size: 20px;
+      line-height: 14px;
+    }
+  }
+  
+  &:not(.active)::before {
+    content: "→";
+  }
+`;
+
 const ResumeButton = styled.a`
   text-decoration: none;
   color: #ffffff;
@@ -166,6 +187,7 @@ const ResumeButton = styled.a`
   font-weight: 400;
   font-size: 14px;
   transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
 
   &:hover {
     opacity: 0.6;
@@ -229,24 +251,27 @@ const Home = () => {
       <Container>
         <TopLeft>
           <Name>Kaustubh Pandey</Name>
-          <Role>VLSI Design Engineer</Role>
+          <Role>VLSI Enthusiast</Role>
         </TopLeft>
 
-        <BottomLeft>
+        <NavContainer>
           <NavMenu>
             <NavItem>
               <Link to="/" className={isHomePage ? 'active' : ''}>
-                → Home
+                <NavIndicator className={isHomePage ? 'active' : ''} />
+                Home
               </Link>
             </NavItem>
             <NavItem>
               <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>
-                → About
+                <NavIndicator className={location.pathname === '/about' ? 'active' : ''} />
+                About
               </Link>
             </NavItem>
             <NavItem>
               <Link to="/projects" className={location.pathname === '/projects' ? 'active' : ''}>
-                → Projects
+                <NavIndicator className={location.pathname === '/projects' ? 'active' : ''} />
+                Projects
               </Link>
             </NavItem>
             <NavItem>
@@ -256,11 +281,12 @@ const Home = () => {
             </NavItem>
             <NavItem>
               <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>
-                → Contact
+                <NavIndicator className={location.pathname === '/contact' ? 'active' : ''} />
+                Contact
               </Link>
             </NavItem>
           </NavMenu>
-        </BottomLeft>
+        </NavContainer>
 
         <BottomRight $show={isHomePage}>
           <BioText>Student at MIT Manipal.</BioText>
