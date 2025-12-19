@@ -65,7 +65,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   overflow: hidden;
-  gap: ${props => props.$hasGap ? '3rem' : '0'};
+  gap: 0;
   transition: gap 1s ease-in-out;
 `;
 
@@ -109,7 +109,9 @@ const BottomRight = styled.div`
   bottom: 3rem;
   max-width: 280px;
   animation: ${slideInRight} 0.8s ease-in-out 1s forwards;
-  opacity: 0;
+  opacity: ${props => props.$show ? '1' : '0'};
+  visibility: ${props => props.$show ? 'visible' : 'hidden'};
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
   z-index: 100;
 `;
 
@@ -155,18 +157,33 @@ const NavItem = styled.li`
   }
 `;
 
+const ResumeButton = styled.a`
+  text-decoration: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 400;
+  font-size: 14px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 0.6;
+  }
+`;
+
 const MainContent = styled.div`
-  flex: ${props => props.$show ? '1' : '0.35'};
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   padding: 3rem 2rem 3rem 2rem;
-  transition: flex 1s ease-in-out,
-    opacity 0.8s ease-in-out;
-  opacity: ${props => props.$show ? '0' : '1'};
+  transition: opacity 0.8s ease-in-out;
+  opacity: ${props => props.$shrink ? '0' : '1'};
+  visibility: ${props => props.$shrink ? 'hidden' : 'visible'};
   overflow-y: auto;
-  pointer-events: ${props => props.$show ? 'none' : 'auto'};
+  pointer-events: ${props => props.$shrink ? 'none' : 'auto'};
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -183,7 +200,7 @@ const MainContent = styled.div`
 `;
 
 const PageContent = styled.div`
-  flex: ${props => props.$show ? '0.65' : '0'};
+  flex: ${props => props.$show ? '1' : '0'};
   opacity: ${props => props.$show ? '1' : '0'};
   transform: translateX(${props => props.$show ? '0' : '100%'});
   transition: flex 1s ease-in-out,
@@ -209,7 +226,7 @@ const Home = () => {
   return (
     <Background>
       <CanvasBackground id="particles" />
-      <Container $hasGap={!isHomePage}>
+      <Container>
         <TopLeft>
           <Name>Kaustubh Pandey</Name>
           <Role>VLSI Design Engineer</Role>
@@ -233,6 +250,11 @@ const Home = () => {
               </Link>
             </NavItem>
             <NavItem>
+              <ResumeButton href="/KP_Resume.pdf" target="_blank" rel="noopener noreferrer">
+                → Resume
+              </ResumeButton>
+            </NavItem>
+            <NavItem>
               <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>
                 → Contact
               </Link>
@@ -240,20 +262,18 @@ const Home = () => {
           </NavMenu>
         </BottomLeft>
 
-        {isHomePage && (
-          <BottomRight>
-            <BioText>Student at MIT Manipal.</BioText>
-            <BioText>
-              I believe VLSI design can be more innovative and inspiring.
-            </BioText>
-            <BioText>
-              With a mission to present the possibilities of chip design,
-              I am pursuing new expressions through hardware and experiments.
-            </BioText>
-          </BottomRight>
-        )}
+        <BottomRight $show={isHomePage}>
+          <BioText>Student at MIT Manipal.</BioText>
+          <BioText>
+            I believe VLSI design can be more innovative and inspiring.
+          </BioText>
+          <BioText>
+            With a mission to present the possibilities of chip design,
+            I am pursuing new expressions through hardware and experiments.
+          </BioText>
+        </BottomRight>
 
-        <MainContent $show={!isHomePage} />
+        <MainContent $shrink={!isHomePage} />
 
         <PageContent $show={!isHomePage}>
           <Outlet />

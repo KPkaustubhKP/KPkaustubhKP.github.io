@@ -9,7 +9,7 @@ const Container = styled(motion.div)`
   color: #ffffff;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   overflow-y: auto;
-  padding: 3rem 6rem 3rem 2rem;
+  padding: 3rem 6rem 3rem 15rem;
   position: relative;
   display: flex;
   align-items: flex-start;
