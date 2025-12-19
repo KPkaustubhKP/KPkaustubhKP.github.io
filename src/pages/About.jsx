@@ -1,18 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { about } from "../data/data";
 
 const Container = styled(motion.div)`
   height: 100%;
   width: 100%;
+  max-width: 100vw;
   color: #ffffff;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   overflow-y: auto;
-  padding: 3rem 6rem 3rem 15rem;
+  overflow-x: hidden;
+  padding: clamp(2rem, 3vw, 3rem) clamp(2rem, 6vw, 6rem) clamp(2rem, 3vw, 3rem) clamp(1.5rem, 2vw, 2rem);
   position: relative;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
 
   &::-webkit-scrollbar {
@@ -27,83 +28,135 @@ const Container = styled(motion.div)`
     background-color: #ffffff;
     border-radius: 4px;
   }
+
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem 5rem 1.5rem;
+    align-items: flex-start;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.5rem 1rem 4rem 1rem;
+  }
 `;
 
 const ContentWrapper = styled.div`
-  max-width: 600px;
+  max-width: 700px;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  padding-left: 0;
-`;
 
-const Section = styled(motion.div)`
-  padding-bottom: 2rem;
-  border-bottom: 1px solid #333333;
-  
-  &:last-child {
-    border-bottom: none;
+  @media (max-width: 768px) {
+    max-width: 100%;
+    gap: 2rem;
   }
 `;
 
-const SectionTitle = styled.h2`
-  font-size: 14px;
+const Title = styled.h2`
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  @media (max-width: 480px) {
+    font-size: clamp(24px, 6vw, 28px);
+  }
+`;
+
+const Paragraph = styled.p`
+  font-size: clamp(14px, 1.7vw, 16px);
+  color: #cccccc;
+  line-height: 1.8;
+  margin: 0;
+  font-weight: 300;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    line-height: 1.6;
+  }
+`;
+
+const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
+`;
+
+const SectionTitle = styled.h3`
+  font-size: clamp(12px, 1.5vw, 14px);
   font-weight: 500;
   color: #999999;
-  margin: 0 0 1.5rem 0;
+  margin: 0;
   text-transform: uppercase;
   letter-spacing: 2px;
-`;
+  position: relative;
+  padding-left: 1.5rem;
 
-const Text = styled.p`
-  font-size: 16px;
-  line-height: 1.8;
-  color: #cccccc;
-  margin: 0 0 1rem 0;
-  font-weight: 300;
-  
-  &:last-child {
-    margin-bottom: 0;
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    padding-left: 1rem;
   }
 `;
 
-const Institution = styled.p`
-  font-size: 16px;
-  color: #ffffff;
-  margin: 0;
-  font-weight: 400;
-  line-height: 1.6;
-`;
-
-const InstitutionDetail = styled.span`
-  color: #999999;
-  font-weight: 300;
-  display: block;
-  margin-top: 0.5rem;
-  font-size: 14px;
-`;
-
-const TagsGrid = styled.div`
+const SkillsList = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(120px, 20vw, 200px), 1fr));
+  gap: 1rem;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.8rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.6rem;
+  }
 `;
 
-const Tag = styled.div`
+const SkillItem = styled.div`
   background-color: transparent;
-  color: #ffffff;
-  padding: 0.6rem 1rem;
   border: 1px solid #333333;
-  font-size: 14px;
-  text-align: center;
+  padding: 1rem;
   transition: all 0.3s ease;
+  text-align: center;
+  font-size: clamp(12px, 1.5vw, 14px);
   font-weight: 300;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
 
   &:hover {
     border-color: #ffffff;
     background-color: #ffffff;
     color: #000000;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.8rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.7rem 0.5rem;
   }
 `;
 
@@ -115,19 +168,10 @@ const About = () => {
       x: 0,
       transition: {
         duration: 0.5,
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 }
-    }
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
   };
 
   return (
@@ -137,44 +181,49 @@ const About = () => {
       animate="visible"
     >
       <ContentWrapper>
-        <Section variants={itemVariants}>
-          <SectionTitle>About</SectionTitle>
-          <Text>
-            {about.description}
-          </Text>
-          <Text>
-            Experienced in working with professional EDA tools, TCAD simulation,
-            and microcontroller programming. Dedicated to creating efficient,
-            optimized hardware solutions for complex digital systems.
-          </Text>
+        <div>
+          <Title>About Me</Title>
+          <Paragraph>
+            I'm a VLSI enthusiast currently studying at MIT Manipal, passionate about
+            pushing the boundaries of chip design and hardware innovation. My journey
+            in electronics has been driven by curiosity and a desire to understand
+            how silicon transforms ideas into reality.
+          </Paragraph>
+        </div>
+
+        <Section>
+          <SectionTitle>What I Do</SectionTitle>
+          <Paragraph>
+            I specialize in VLSI design, digital electronics, and semiconductor device
+            simulation. From RTL design to physical implementation, I enjoy working
+            across the entire chip design flow. My projects range from custom MAC
+            architectures to TCAD device modeling and verification frameworks.
+          </Paragraph>
         </Section>
 
-        <Section variants={itemVariants}>
-          <SectionTitle>Education</SectionTitle>
-          <Institution>
-            {about.institution}
-            <InstitutionDetail>{about.degree}</InstitutionDetail>
-            <InstitutionDetail>Specialization: {about.specialization}</InstitutionDetail>
-          </Institution>
+        <Section>
+          <SectionTitle>Technical Skills</SectionTitle>
+          <SkillsList>
+            <SkillItem>SystemVerilog</SkillItem>
+            <SkillItem>Verilog HDL</SkillItem>
+            <SkillItem>C/C++</SkillItem>
+            <SkillItem>Python</SkillItem>
+            <SkillItem>TCAD Simulation</SkillItem>
+            <SkillItem>RTL Design</SkillItem>
+            <SkillItem>Digital Verification</SkillItem>
+            <SkillItem>ARM Assembly</SkillItem>
+          </SkillsList>
         </Section>
 
-        <Section variants={itemVariants}>
-          <SectionTitle>Skills & Technologies</SectionTitle>
-          <TagsGrid>
-            {about.tags.map((tag, index) => (
-              <Tag key={index}>{tag}</Tag>
-            ))}
-          </TagsGrid>
-        </Section>
-
-        <Section variants={itemVariants}>
-          <SectionTitle>Focus Areas</SectionTitle>
-          <Text>• RTL design and synthesis using Verilog & SystemVerilog</Text>
-          <Text>• Physical design and place-and-route for ASICs</Text>
-          <Text>• TCAD semiconductor device simulation and modeling</Text>
-          <Text>• PCB design for high-speed and power electronics</Text>
-          <Text>• Embedded systems and microcontroller programming</Text>
-          <Text>• Hardware verification and timing analysis</Text>
+        <Section>
+          <SectionTitle>Philosophy</SectionTitle>
+          <Paragraph>
+            I believe that VLSI design should be both innovative and inspiring.
+            Every transistor, every logic gate, and every routing decision is an
+            opportunity to create something remarkable. Through my work, I aim to
+            demonstrate the artistic and creative aspects of hardware design while
+            maintaining technical excellence.
+          </Paragraph>
         </Section>
       </ContentWrapper>
     </Container>
@@ -182,4 +231,3 @@ const About = () => {
 };
 
 export default About;
-

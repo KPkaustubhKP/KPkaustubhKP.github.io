@@ -6,10 +6,12 @@ import { projects } from "../data/data";
 const Container = styled(motion.div)`
   height: 100%;
   width: 100%;
+  max-width: 100vw;
   color: #ffffff;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   overflow-y: auto;
-  padding: 3rem 6rem 3rem 2rem;
+  overflow-x: hidden;
+  padding: clamp(2rem, 3vw, 3rem) clamp(2rem, 6vw, 6rem) clamp(2rem, 3vw, 3rem) clamp(1.5rem, 2vw, 2rem);
   position: relative;
   display: flex;
   align-items: center;
@@ -27,6 +29,15 @@ const Container = styled(motion.div)`
     background-color: #ffffff;
     border-radius: 4px;
   }
+
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem 5rem 1.5rem;
+    align-items: flex-start;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.5rem 1rem 4rem 1rem;
+  }
 `;
 
 const ProjectsList = styled.div`
@@ -35,6 +46,11 @@ const ProjectsList = styled.div`
   gap: 1.8rem;
   max-width: 700px;
   width: 100%;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    gap: 1.5rem;
+  }
 `;
 
 const ProjectCard = styled(motion.div)`
@@ -44,30 +60,47 @@ const ProjectCard = styled(motion.div)`
   padding: 1rem 0 1rem 1.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  max-width: 100%;
+  overflow: hidden;
 
   &:hover {
     border-left-color: #ffffff;
     transform: translateX(5px);
   }
+
+  @media (max-width: 768px) {
+    padding: 0.8rem 0 0.8rem 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.7rem 0 0.7rem 0.8rem;
+  }
 `;
 
 const CardTitle = styled.h3`
-  font-size: 24px;
+  font-size: clamp(18px, 2.5vw, 24px);
   font-weight: 500;
   color: #ffffff;
   margin: 0;
   transition: all 0.3s ease;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 
   ${ProjectCard}:hover & {
     opacity: 0.7;
   }
+
+  @media (max-width: 480px) {
+    font-size: clamp(16px, 4vw, 18px);
+  }
 `;
 
 const CardRole = styled.p`
-  font-size: 14px;
+  font-size: clamp(12px, 1.5vw, 14px);
   color: #999999;
   margin: 0.6rem 0 0 0;
   font-weight: 300;
+  word-wrap: break-word;
 `;
 
 const ExpandedView = styled(motion.div)`
@@ -79,6 +112,7 @@ const ExpandedView = styled(motion.div)`
   background-color: #000000;
   z-index: 200;
   overflow-y: auto;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -95,16 +129,34 @@ const ExpandedView = styled(motion.div)`
 `;
 
 const ExpandedContent = styled(motion.div)`
-  max-width: 950px;
+  max-width: min(950px, calc(100% - 3rem));
   margin: 0 auto;
-  padding: 4rem 3rem;
+  padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 3vw, 3rem);
   min-height: 100vh;
+  overflow-x: hidden;
+
+  @media (max-width: 768px) {
+    max-width: calc(100% - 2rem);
+    padding: 2rem 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    max-width: calc(100% - 1.5rem);
+    padding: 1.5rem 1rem;
+  }
 `;
 
 const HeaderSection = styled.div`
   border-bottom: 2px solid #333333;
   padding-bottom: 2rem;
   margin-bottom: 3rem;
+  max-width: 100%;
+  overflow-wrap: break-word;
+
+  @media (max-width: 768px) {
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+  }
 `;
 
 const BackLink = styled.button`
@@ -112,7 +164,7 @@ const BackLink = styled.button`
   border: none;
   color: #ffffff;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 14px;
+  font-size: clamp(12px, 1.5vw, 14px);
   font-weight: 400;
   cursor: pointer;
   display: flex;
@@ -126,44 +178,75 @@ const BackLink = styled.button`
     opacity: 0.6;
     transform: translateX(-5px);
   }
+
+  @media (max-width: 768px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const ProjectTitle = styled.h1`
-  font-size: 48px;
+  font-size: clamp(28px, 5vw, 48px);
   font-weight: 500;
   color: #ffffff;
   margin: 0 0 1rem 0;
   line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+
+  @media (max-width: 480px) {
+    font-size: clamp(24px, 6vw, 28px);
+  }
 `;
 
 const ProjectRole = styled.p`
-  font-size: 16px;
+  font-size: clamp(14px, 1.8vw, 16px);
   color: #999999;
   margin: 0;
   font-weight: 300;
+  word-wrap: break-word;
 `;
 
 const ContentGrid = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 4rem;
+  gap: clamp(2rem, 4vw, 4rem);
   margin-bottom: 3rem;
+  max-width: 100%;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 `;
 
-const MainColumn = styled.div``;
+const MainColumn = styled.div`
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+`;
 
-const SideColumn = styled.div``;
+const SideColumn = styled.div`
+  min-width: 0;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    order: -1;
+  }
+`;
 
 const Section = styled.div`
   margin-bottom: 3rem;
+  max-width: 100%;
+  overflow-wrap: break-word;
+
+  @media (max-width: 768px) {
+    margin-bottom: 2rem;
+  }
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 14px;
+  font-size: clamp(12px, 1.5vw, 14px);
   font-weight: 500;
   color: #999999;
   margin: 0 0 1.5rem 0;
@@ -181,20 +264,36 @@ const SectionTitle = styled.h2`
     width: 2px;
     background: #ffffff;
   }
+
+  @media (max-width: 768px) {
+    margin: 0 0 1rem 0;
+    padding-left: 1rem;
+  }
 `;
 
 const ProjectDescription = styled.p`
-  font-size: 16px;
+  font-size: clamp(14px, 1.7vw, 16px);
   line-height: 1.8;
   color: #cccccc;
   margin: 0;
   font-weight: 300;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  @media (max-width: 768px) {
+    line-height: 1.6;
+  }
 `;
 
 const AchievementsList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
 `;
 
 const AchievementItem = styled.div`
@@ -202,55 +301,91 @@ const AchievementItem = styled.div`
   border-left: 2px solid #333333;
   padding: 1.5rem;
   transition: all 0.3s ease;
+  max-width: 100%;
+  overflow-wrap: break-word;
 
   &:hover {
     border-left-color: #ffffff;
     transform: translateX(5px);
   }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.8rem;
+  }
 `;
 
 const AchievementText = styled.p`
-  font-size: 15px;
+  font-size: clamp(13px, 1.6vw, 15px);
   line-height: 1.6;
   color: #cccccc;
   margin: 0;
   font-weight: 300;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 `;
 
 const TechSection = styled.div`
   position: sticky;
   top: 2rem;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    position: relative;
+    top: 0;
+  }
 `;
 
 const TechTitle = styled.h3`
-  font-size: 14px;
+  font-size: clamp(12px, 1.5vw, 14px);
   font-weight: 500;
   color: #999999;
   margin: 0 0 1.5rem 0;
   text-transform: uppercase;
   letter-spacing: 2px;
+
+  @media (max-width: 768px) {
+    margin: 0 0 1rem 0;
+  }
 `;
 
 const TechStack = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
 `;
 
 const TechTag = styled.div`
   background-color: transparent;
   color: #ffffff;
   padding: 0.8rem 1rem;
-  font-size: 14px;
+  font-size: clamp(12px, 1.5vw, 14px);
   border: 1px solid #333333;
   transition: all 0.3s ease;
   text-align: center;
   font-weight: 300;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 
   &:hover {
     background-color: #ffffff;
     color: #000000;
     border-color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.6rem 0.8rem;
+    flex: 0 0 auto;
   }
 `;
 
@@ -310,8 +445,8 @@ const Projects = () => {
         </ProjectsList>
       </Container>
 
-      <AnimatePresence>
-        {expandedProject && (
+      {expandedProject && (
+        <AnimatePresence>
           <ExpandedView
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -319,9 +454,6 @@ const Projects = () => {
             onClick={() => setExpandedProject(null)}
           >
             <ExpandedContent
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 50, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
               <HeaderSection>
@@ -336,9 +468,7 @@ const Projects = () => {
                 <MainColumn>
                   <Section>
                     <SectionTitle>Overview</SectionTitle>
-                    <ProjectDescription>
-                      {expandedProject.description}
-                    </ProjectDescription>
+                    <ProjectDescription>{expandedProject.description}</ProjectDescription>
                   </Section>
 
                   <Section>
@@ -366,11 +496,10 @@ const Projects = () => {
               </ContentGrid>
             </ExpandedContent>
           </ExpandedView>
-        )}
-      </AnimatePresence>
+        </AnimatePresence>
+      )}
     </>
   );
 };
 
 export default Projects;
-
