@@ -6,14 +6,14 @@ import { projects } from "../data/data";
 const Container = styled(motion.div)`
   height: 100%;
   width: 100%;
-  color: #c3c3c3;
-  font-family: "Inconsolata", monospace;
+  color: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   overflow-y: auto;
-  padding: 3rem 4rem 3rem 2rem;
+  padding: 3rem 6rem 3rem 2rem;
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -24,7 +24,7 @@ const Container = styled(motion.div)`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #869395;
+    background-color: #ffffff;
     border-radius: 4px;
   }
 `;
@@ -40,33 +40,34 @@ const ProjectsList = styled.div`
 const ProjectCard = styled(motion.div)`
   background-color: transparent;
   border: none;
-  border-left: 2px solid rgba(50, 184, 198, 0.3);
+  border-left: 2px solid #333333;
   padding: 1rem 0 1rem 1.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    border-left-color: #32b8c6;
-    transform: translateX(-10px);
+    border-left-color: #ffffff;
+    transform: translateX(5px);
   }
 `;
 
 const CardTitle = styled.h3`
   font-size: 24px;
-  font-weight: 900;
-  color: #32b8c6;
+  font-weight: 500;
+  color: #ffffff;
   margin: 0;
   transition: all 0.3s ease;
 
   ${ProjectCard}:hover & {
-    color: #fff;
+    opacity: 0.7;
   }
 `;
 
 const CardRole = styled.p`
-  font-size: 16px;
-  color: #869395;
+  font-size: 14px;
+  color: #999999;
   margin: 0.6rem 0 0 0;
+  font-weight: 300;
 `;
 
 const ExpandedView = styled(motion.div)`
@@ -75,7 +76,7 @@ const ExpandedView = styled(motion.div)`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: hsl(0, 0%, 5%);
+  background-color: #000000;
   z-index: 200;
   overflow-y: auto;
 
@@ -88,7 +89,7 @@ const ExpandedView = styled(motion.div)`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #32b8c6;
+    background-color: #ffffff;
     border-radius: 4px;
   }
 `;
@@ -101,7 +102,7 @@ const ExpandedContent = styled(motion.div)`
 `;
 
 const HeaderSection = styled.div`
-  border-bottom: 2px solid rgba(50, 184, 198, 0.3);
+  border-bottom: 2px solid #333333;
   padding-bottom: 2rem;
   margin-bottom: 3rem;
 `;
@@ -109,10 +110,10 @@ const HeaderSection = styled.div`
 const BackLink = styled.button`
   background: none;
   border: none;
-  color: #32b8c6;
-  font-family: "Inconsolata", monospace;
-  font-size: 20px;
-  font-weight: 900;
+  color: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -122,24 +123,24 @@ const BackLink = styled.button`
   transition: all 0.3s ease;
 
   &:hover {
-    color: #3dd4e4;
+    opacity: 0.6;
     transform: translateX(-5px);
   }
 `;
 
 const ProjectTitle = styled.h1`
   font-size: 48px;
-  font-weight: 900;
-  color: #fff;
+  font-weight: 500;
+  color: #ffffff;
   margin: 0 0 1rem 0;
   line-height: 1.2;
 `;
 
 const ProjectRole = styled.p`
-  font-size: 18px;
-  color: #32b8c6;
+  font-size: 16px;
+  color: #999999;
   margin: 0;
-  font-weight: 600;
+  font-weight: 300;
 `;
 
 const ContentGrid = styled.div`
@@ -162,10 +163,12 @@ const Section = styled.div`
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 28px;
-  font-weight: 900;
-  color: #32b8c6;
+  font-size: 14px;
+  font-weight: 500;
+  color: #999999;
   margin: 0 0 1.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   position: relative;
   padding-left: 1.5rem;
 
@@ -175,16 +178,17 @@ const SectionTitle = styled.h2`
     left: 0;
     top: 0;
     bottom: 0;
-    width: 4px;
-    background: linear-gradient(to bottom, #32b8c6, transparent);
+    width: 2px;
+    background: #ffffff;
   }
 `;
 
 const ProjectDescription = styled.p`
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.8;
-  color: #c3c3c3;
+  color: #cccccc;
   margin: 0;
+  font-weight: 300;
 `;
 
 const AchievementsList = styled.div`
@@ -194,23 +198,23 @@ const AchievementsList = styled.div`
 `;
 
 const AchievementItem = styled.div`
-  background-color: rgba(50, 184, 198, 0.05);
-  border-left: 3px solid #32b8c6;
+  background-color: transparent;
+  border-left: 2px solid #333333;
   padding: 1.5rem;
-  border-radius: 4px;
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: rgba(50, 184, 198, 0.1);
+    border-left-color: #ffffff;
     transform: translateX(5px);
   }
 `;
 
 const AchievementText = styled.p`
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.6;
-  color: #c3c3c3;
+  color: #cccccc;
   margin: 0;
+  font-weight: 300;
 `;
 
 const TechSection = styled.div`
@@ -219,10 +223,12 @@ const TechSection = styled.div`
 `;
 
 const TechTitle = styled.h3`
-  font-size: 20px;
-  font-weight: 900;
-  color: #32b8c6;
+  font-size: 14px;
+  font-weight: 500;
+  color: #999999;
   margin: 0 0 1.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 `;
 
 const TechStack = styled.div`
@@ -232,26 +238,25 @@ const TechStack = styled.div`
 `;
 
 const TechTag = styled.div`
-  background-color: rgba(50, 184, 198, 0.1);
-  color: #fff;
+  background-color: transparent;
+  color: #ffffff;
   padding: 0.8rem 1rem;
-  border-radius: 4px;
   font-size: 14px;
-  border: 1px solid rgba(50, 184, 198, 0.3);
+  border: 1px solid #333333;
   transition: all 0.3s ease;
   text-align: center;
-  font-weight: 600;
+  font-weight: 300;
 
   &:hover {
-    background-color: rgba(50, 184, 198, 0.2);
-    border-color: #32b8c6;
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
   }
 `;
 
 const Projects = () => {
   const [expandedProject, setExpandedProject] = useState(null);
 
-  // Container animation variants
   const containerVariants = {
     hidden: { opacity: 0, x: 100 },
     visible: {
@@ -265,7 +270,6 @@ const Projects = () => {
     }
   };
 
-  // Individual card animation variants
   const cardVariants = {
     hidden: {
       opacity: 0,
