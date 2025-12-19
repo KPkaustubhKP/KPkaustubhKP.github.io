@@ -1,93 +1,18 @@
-import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
-import { Link } from "react-router-dom";
+import React from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-const Background = styled.div`
-  height: 100vh;
-  width: 100vw;
-  background-color: hsl(0, 0%, 5%);
+const Container = styled(motion.div)`
+  height: 100%;
+  width: 100%;
+  color: #c3c3c3;
+  font-family: "Inconsolata", monospace;
+  overflow-y: auto;
+  padding: 3rem 4rem 3rem 2rem;
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-family: "Inconsolata", monospace;
-  position: relative;
-`;
-
-const CanvasBackground = styled.canvas`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-`;
-
-const PageContainer = styled.div`
-  height: calc(100vh - 50px);
-  width: calc(100vw - 50px);
-  border: 1px solid #c3c3c3;
-  background-color: hsla(0, 0%, 5%, 0.95);
-  position: fixed;
-  animation: ${fadeIn} 1s ease-in-out forwards;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-`;
-
-const LeftMenu = styled.nav`
-  width: 20%;
-  padding: 1.6rem;
-  border-right: 1px solid rgba(195, 195, 195, 0.2);
-  overflow-y: auto;
-`;
-
-const MenuList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-  li {
-    margin-bottom: 1rem;
-
-    a {
-      text-decoration: none;
-      color: #c3c3c3;
-      font-weight: 900;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-
-      &:hover {
-        color: #32b8c6;
-        transform: translateX(5px);
-      }
-    }
-  }
-`;
-
-const RightContent = styled.div`
-  flex: 1;
-  overflow-y: auto;
-  padding: 1.6rem;
-  color: #c3c3c3;
+  justify-content: flex-end;
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -103,371 +28,201 @@ const RightContent = styled.div`
   }
 `;
 
+const ContentWrapper = styled.div`
+  max-width: 700px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+`;
+
 const Title = styled.h2`
-  font-size: 40px;
+  font-size: 48px;
   font-weight: 900;
   color: white;
-  margin: 0 0 2rem 0;
+  margin: 0 0 1rem 0;
+  text-align: center;
 `;
 
 const Subtitle = styled.p`
-  font-size: 16px;
+  font-size: 18px;
   color: #869395;
   margin-bottom: 2rem;
-  max-width: 500px;
-`;
-
-const ContactLinks = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-const ContactLink = styled.a`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: rgba(50, 184, 198, 0.08);
-  border: 1px solid rgba(50, 184, 198, 0.2);
-  border-radius: 6px;
-  text-decoration: none;
-  color: #32b8c6;
-  transition: all 0.3s ease;
-  width: fit-content;
-
-  &:hover {
-    background-color: rgba(50, 184, 198, 0.15);
-    transform: translateX(8px);
-    border-color: rgba(50, 184, 198, 0.4);
-  }
-
-  .icon {
-    font-size: 20px;
-    min-width: 24px;
-  }
-
-  .text {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .label {
-    font-size: 12px;
-    color: #869395;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .value {
-    font-size: 16px;
-    font-weight: 600;
-    color: #c3c3c3;
-  }
-`;
-
-const CopyButton = styled.button`
-  background: none;
-  border: 1px solid rgba(50, 184, 198, 0.3);
-  color: #32b8c6;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: "Inconsolata", monospace;
-
-  &:hover {
-    background-color: rgba(50, 184, 198, 0.2);
-    border-color: rgba(50, 184, 198, 0.6);
-  }
+  line-height: 1.8;
+  text-align: center;
+  max-width: 600px;
 `;
 
 const SocialLinks = styled.div`
   display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: 3rem;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const SocialIcon = styled.a`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: rgba(50, 184, 198, 0.1);
-  border: 1px solid rgba(50, 184, 198, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #32b8c6;
+  color: ${props => props.$iconColor};
   text-decoration: none;
-  font-size: 18px;
   transition: all 0.3s ease;
+  position: relative;
 
   &:hover {
-    background-color: rgba(50, 184, 198, 0.2);
-    transform: translateY(-4px);
+    color: ${props => props.$hoverColor};
+    transform: translateY(-8px) scale(1.15);
+    filter: drop-shadow(0 8px 16px ${props => props.$shadowColor});
+  }
+
+  &::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #869395;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
   }
 `;
 
-const FormSection = styled.div`
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(50, 184, 198, 0.2);
+const IconSVG = styled.svg`
+  width: 48px;
+  height: 48px;
+  fill: currentColor;
 `;
 
-const FormTitle = styled.h3`
-  font-size: 20px;
-  font-weight: 600;
-  color: #32b8c6;
-  margin-bottom: 1rem;
+const Divider = styled.div`
+  width: 100%;
+  max-width: 400px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(50, 184, 198, 0.3),
+    transparent
+  );
+  margin: 1rem 0;
 `;
 
-const FormGroup = styled.div`
-  margin-bottom: 1rem;
-`;
-
-const Label = styled.label`
-  display: block;
-  font-size: 12px;
+const MessageText = styled.p`
+  font-size: 16px;
   color: #869395;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.5rem;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  max-width: 400px;
-  padding: 0.75rem;
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(50, 184, 198, 0.2);
-  border-radius: 4px;
-  color: #c3c3c3;
-  font-family: "Inconsolata", monospace;
-  font-size: 14px;
-  transition: all 0.3s ease;
-
-  &:focus {
-    outline: none;
-    border-color: rgba(50, 184, 198, 0.6);
-    background-color: rgba(50, 184, 198, 0.08);
-  }
-
-  &::placeholder {
-    color: #869395;
-  }
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  max-width: 400px;
-  min-height: 100px;
-  padding: 0.75rem;
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(50, 184, 198, 0.2);
-  border-radius: 4px;
-  color: #c3c3c3;
-  font-family: "Inconsolata", monospace;
-  font-size: 14px;
-  resize: vertical;
-  transition: all 0.3s ease;
-
-  &:focus {
-    outline: none;
-    border-color: rgba(50, 184, 198, 0.6);
-    background-color: rgba(50, 184, 198, 0.08);
-  }
-
-  &::placeholder {
-    color: #869395;
-  }
-`;
-
-const SendButton = styled.button`
-  padding: 0.75rem 1.5rem;
-  background-color: rgba(50, 184, 198, 0.2);
-  border: 1px solid #32b8c6;
-  color: #32b8c6;
-  border-radius: 4px;
-  font-family: "Inconsolata", monospace;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-
-  &:hover:not(:disabled) {
-    background-color: rgba(50, 184, 198, 0.3);
-    transform: translateY(-2px);
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+  text-align: center;
+  line-height: 1.6;
+  font-style: italic;
 `;
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const [copied, setCopied] = useState(false);
-  const [sending, setSending] = useState(false);
-
-  const handleCopy = (text) => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSending(true);
-
-    setTimeout(() => {
-      setSending(false);
-      setFormData({ name: "", email: "", message: "" });
-      alert("Message sent! I'll get back to you soon.");
-    }, 1500);
+  // Container animation variants
+  const containerVariants = {
+    hidden: { opacity: 0, x: 100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
   };
 
   return (
-    <Background>
-      <CanvasBackground id="particle-canvas" />
-      <PageContainer>
-        <ContentWrapper>
-          <LeftMenu>
-            <MenuList>
-              <li>
-                <Link to="/">→ Home</Link>
-              </li>
-              <li>
-                <Link to="/projects">→ Projects</Link>
-              </li>
-              <li>
-                <Link to="/contact">→ Contact</Link>
-              </li>
-            </MenuList>
-          </LeftMenu>
+    <Container variants={containerVariants} initial="hidden" animate="visible">
+      <ContentWrapper>
+        <div>
+          <Title>Let's Connect</Title>
+          <Subtitle>
+            Whether you want to collaborate on VLSI projects, discuss hardware
+            design, or just say hi, feel free to reach out through any of these
+            platforms.
+          </Subtitle>
+        </div>
 
-          <RightContent>
-            <Title>Get In Touch</Title>
-            <Subtitle>
-              Let's connect! Whether you want to collaborate, discuss VLSI projects, or just say hi.
-            </Subtitle>
+        <SocialLinks>
+          {/* Email - Gmail colors */}
+          <SocialIcon
+            href="mailto:kasutubhofficial.kp@gmail.com"
+            data-label="Email"
+            title="Email"
+            $iconColor="rgba(234, 67, 53, 0.7)"
+            $hoverColor="#EA4335"
+            $shadowColor="rgba(234, 67, 53, 0.3)"
+          >
+            <IconSVG viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+            </IconSVG>
+          </SocialIcon>
 
-            <ContactLinks>
-              <ContactLink href="mailto:your.email@example.com">
-                <div className="icon">✉</div>
-                <div className="text">
-                  <div className="label">Email</div>
-                  <div className="value">your.email@example.com</div>
-                </div>
-              </ContactLink>
+          {/* GitHub */}
+          <SocialIcon
+            href="https://github.com/KPkaustubhKP"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-label="GitHub"
+            title="GitHub"
+            $iconColor="rgba(200, 200, 200, 0.7)"
+            $hoverColor="#ffffff"
+            $shadowColor="rgba(200, 200, 200, 0.3)"
+          >
+            <IconSVG viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
+            </IconSVG>
+          </SocialIcon>
 
-              <ContactLink href="https://github.com/your-username" target="_blank" rel="noopener noreferrer">
-                <div className="icon">⚡</div>
-                <div className="text">
-                  <div className="label">GitHub</div>
-                  <div className="value">github.com/your-username</div>
-                </div>
-              </ContactLink>
+          {/* LinkedIn */}
+          <SocialIcon
+            href="https://www.linkedin.com/in/kaustubh-pandey-b42082218/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-label="LinkedIn"
+            title="LinkedIn"
+            $iconColor="rgba(10, 102, 194, 0.7)"
+            $hoverColor="#0A66C2"
+            $shadowColor="rgba(10, 102, 194, 0.3)"
+          >
+            <IconSVG viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+            </IconSVG>
+          </SocialIcon>
 
-              <ContactLink href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">
-                <div className="icon">💼</div>
-                <div className="text">
-                  <div className="label">LinkedIn</div>
-                  <div className="value">linkedin.com/in/your-profile</div>
-                </div>
-              </ContactLink>
+          {/* Instagram */}
+          <SocialIcon
+            href="https://instagram.com/kp._.kaustubh"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-label="Instagram"
+            title="Instagram"
+            $iconColor="rgba(225, 48, 108, 0.7)"
+            $hoverColor="#E1306C"
+            $shadowColor="rgba(225, 48, 108, 0.3)"
+          >
+            <IconSVG viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z" />
+            </IconSVG>
+          </SocialIcon>
+        </SocialLinks>
 
-              <ContactLink
-                as="div"
-                style={{ cursor: "pointer", display: "flex", justifyContent: "space-between" }}
-                onClick={() => handleCopy("+91-XXXXXXXXXX")}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                  <div className="icon">📱</div>
-                  <div className="text">
-                    <div className="label">Phone</div>
-                    <div className="value">+91-XXXXXXXXXX</div>
-                  </div>
-                </div>
-                <CopyButton onClick={() => handleCopy("+91-XXXXXXXXXX")}>
-                  {copied ? "Copied!" : "Copy"}
-                </CopyButton>
-              </ContactLink>
-            </ContactLinks>
+        <Divider />
 
-            <SocialLinks>
-              <SocialIcon href="https://twitter.com/your-handle" target="_blank" rel="noopener noreferrer">
-                𝕏
-              </SocialIcon>
-            </SocialLinks>
-
-            <FormSection>
-              <FormTitle>Quick Message</FormTitle>
-              <form onSubmit={handleSubmit}>
-                <FormGroup>
-                  <Label htmlFor="name">Name</Label>
-                  <Input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Your name"
-                    required
-                  />
-                </FormGroup>
-
-                <FormGroup>
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="your.email@example.com"
-                    required
-                  />
-                </FormGroup>
-
-                <FormGroup>
-                  <Label htmlFor="message">Message</Label>
-                  <TextArea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    placeholder="Your message..."
-                    required
-                  />
-                </FormGroup>
-
-                <SendButton type="submit" disabled={sending}>
-                  {sending ? "Sending..." : "Send Message"}
-                </SendButton>
-              </form>
-            </FormSection>
-          </RightContent>
-        </ContentWrapper>
-      </PageContainer>
-    </Background>
+        <MessageText>
+          "Building the future of hardware, one transistor at a time."
+        </MessageText>
+      </ContentWrapper>
+    </Container>
   );
 };
 
 export default Contact;
+
