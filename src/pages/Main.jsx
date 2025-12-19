@@ -1,12 +1,13 @@
 import React from "react";
-import About from "../components/homepage/About";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: none; // Hidden since Home.jsx handles the main content
+`;
 
 const Main = () => {
-  return (
-    <>
-      <About />
-    </>
-  );
+  return <Container />;
 };
 
 export default Main;
+

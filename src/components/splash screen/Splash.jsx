@@ -17,7 +17,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: hsl(0, 0%, 5%);
+  background-color: #000000;
 `;
 
 const Title = styled.h1`

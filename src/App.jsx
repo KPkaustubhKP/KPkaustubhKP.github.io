@@ -17,7 +17,6 @@ function App() {
         <Route path="contact" element={<Contact />} />
       </Route>
     )
-    // No basename needed for user sites
   );
 
   const [loading, setLoading] = useState(true);
