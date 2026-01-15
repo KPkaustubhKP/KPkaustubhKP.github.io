@@ -23,12 +23,32 @@ interface JourneyEvent {
   achievement?: string;
 }
 
+const skillDescriptions: Record<string, string> = {
+  "C/C++": "Low-level system programming and firmware development for embedded applications.",
+  "SystemVerilog": "Advanced hardware description and verification language for complex SoC design.",
+  "Verilog": "Standard HDL for RTL modeling, logic synthesis, and digital system design.",
+  "Latex": "Typesetting system for high-quality technical documentation and academic publications.",
+  "Vivado": "Comprehensive FPGA design suite for synthesis, implementation, and bitstream generation.",
+  "KiCad": "Cross-platform EDA tool for professional schematic capture and multi-layer PCB layout.",
+  "Icarus Verilog": "High-performance simulation and synthesis tool for IEEE-1364 Verilog code.",
+  "GTKWave": "Visual simulation wave viewer for analyzing digital logic behavior and timing.",
+  "Cadence": "Enterprise-grade EDA platform for complete integrated circuit design flows.",
+  "virtuoso": "Industry-standard platform for custom analog and mixed-signal circuit design.",
+  "Synopsys Sentaurus": "TCAD tool suite for advanced semiconductor device modeling and process simulation.",
+  "LTSpice": "Powerful SPICE simulation software for rigorous electronic circuit analysis.",
+  "RTL Design": "Architecting digital logic at the Register-Transfer Level for optimized hardware performance.",
+  "Analog Design": "Transistor-level design of continuous-signal circuits and mixed-signal components.",
+  "TCAD Simulation": "Computer-aided design for modeling semiconductor physics and fabrication processes.",
+  "PCB Layout": "Precision physical design of printed circuit boards focusing on signal and power integrity.",
+  "Physical Design": "Transforming RTL into GDSII via floorplanning, placement, and clock tree synthesis."
+};
+
 const Portfolio: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [showResume, setShowResume] = useState(false);
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
-  // Path to your resume on GitHub Pages (relative to the root)
   const resumePath = "resume.pdf";
 
   useEffect(() => {
@@ -40,7 +60,7 @@ const Portfolio: React.FC = () => {
   }, []);
 
   const projects: Project[] = [
-  {
+    {
       id: 3,
       title: "PID_MOTOR_CONTROLLER",
       category: "FPGA | VERILOG",
@@ -60,7 +80,7 @@ const Portfolio: React.FC = () => {
     },
     {
       id: 2,
-      title: "VSD SQUADRON ULTRA ",
+      title: "VSD SQUADRON ULTRA",
       category: "PCB DESIGN | KICAD",
       image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1600&h=700",
       description: "Evaluation board design for the Thejas32 Vega Processor. Managed high-speed routing and signal integrity.",
@@ -133,25 +153,25 @@ const Portfolio: React.FC = () => {
     {
       year: "2025",
       title: "ISDC'25 PIMA Winners",
-      description: "Secured 1st Place in the PIMA (Project Implementation and Management Assessment) category at the International Space Drone Challenge held at BITS Goa.",
+      description: "Secured 1st Place in the PIMA category at the International Space Drone Challenge held at BITS Goa.",
       achievement: "1st Place Winner - Worldwide"
     },
     {
       year: "2025",
       title: "Global Podium at IGVC USA",
-      description: "Achieved 3rd Place Overall at the Intelligent Ground Vehicle Competition held at Oakland University, Michigan, USA. Led the hardware reliability efforts for the autonomous platform.",
+      description: "Achieved 3rd Place Overall at the Intelligent Ground Vehicle Competition held at Oakland University, Michigan, USA.",
       achievement: "3rd Place Overall - International"
     },
     {
       year: "2025",
       title: "Thejas32 Hardware Ecosystem",
-      description: "Developed the VSD Squadron Ultra, an advanced evaluation board designed to support the RISC-V Thejas32 Vega Processor, bridging custom silicon with real-world applications.",
+      description: "Developed the VSD Squadron Ultra, an advanced evaluation board designed to support the RISC-V Thejas32 Vega Processor.",
       achievement: "SoC Evaluation Board"
     },
     {
       year: "2025",
       title: "IEEE Publication: PID Control",
-      description: "Authored and published a research paper on Digital PID Motor Controllers, optimizing Verilog HDL implementations for real-time robotic speed regulation.",
+      description: "Authored and published a research paper on Digital PID Motor Controllers, optimizing Verilog HDL implementations.",
       achievement: "Published IEEE Researcher"
     }
   ];
@@ -211,14 +231,33 @@ const Portfolio: React.FC = () => {
                   <h3 className="text-xs md:text-sm uppercase tracking-[0.3em] text-slate-400 mb-8 mono-font font-bold">{group.title}</h3>
                   <div className="flex flex-wrap gap-x-10 gap-y-6">
                     {group.skills.map(skill => (
-                      <div key={skill} className="text-base md:text-lg uppercase tracking-widest mono-font text-slate-700 dark:text-slate-300 hover:text-primary transition-colors cursor-default border-b-2 border-transparent hover:border-primary">
-                        {skill}_
+                      <div 
+                        key={skill} 
+                        className="relative group/skill"
+                        onMouseEnter={() => setHoveredSkill(skill)}
+                        onMouseLeave={() => setHoveredSkill(null)}
+                      >
+                        <div className="text-base md:text-lg uppercase tracking-widest mono-font text-slate-700 dark:text-slate-300 hover:text-primary transition-colors cursor-help border-b-2 border-transparent hover:border-primary py-1">
+                          {skill}_
+                        </div>
+                        {/* Interactive Tooltip */}
+                        <div className={`absolute bottom-full left-0 mb-3 w-64 p-4 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 shadow-xl z-50 pointer-events-none transition-all duration-300 origin-bottom-left ${hoveredSkill === skill ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-2 scale-95'}`}>
+                          <p className="text-primary text-[10px] uppercase tracking-widest mono-font font-bold mb-2">Technical Info_</p>
+                          <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-light">
+                            {skillDescriptions[skill] || "Expert proficiency in implementation and architecture."}
+                          </p>
+                          <div className="absolute top-full left-4 w-3 h-3 bg-white dark:bg-zinc-900 border-r border-b border-slate-200 dark:border-zinc-700 transform rotate-45 -translate-y-1.5"></div>
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
               ))}
             </div>
+            {/* Context message */}
+            <p className="mt-12 text-[10px] uppercase tracking-[0.2em] text-slate-400 mono-font italic">
+              * Hover over tags for technical context
+            </p>
           </div>
         </div>
       </section>
@@ -235,37 +274,55 @@ const Portfolio: React.FC = () => {
         </div>
       </main>
 
-      {/* Journey Section */}
+      {/* Journey Section - Interactive & Scrollable */}
       <section id="journey" className="py-40 px-8 border-t border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-950/20">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-lg md:text-xl uppercase tracking-[0.4em] text-primary mb-24 mono-font font-bold text-center">Milestones & Journey</h2>
+          <div className="text-center mb-24">
+            <h2 className="text-lg md:text-xl uppercase tracking-[0.4em] text-primary mb-4 mono-font font-bold">Milestones & Journey</h2>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mono-font">Scroll to explore the archive</p>
+          </div>
           
-          <div className="relative">
-            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[1px] bg-slate-200 dark:bg-zinc-800 transform -translate-x-1/2 hidden md:block"></div>
+          {/* Scrollable Container with custom minimalist scrollbar */}
+          <div className="relative max-h-[80vh] overflow-y-auto px-4 py-8 scroll-hide md:hover:pr-2 transition-all duration-300" style={{ scrollbarWidth: 'thin', scrollbarColor: '#00d4ff transparent' }}>
+            {/* Timeline Guide Line */}
+            <div className="absolute left-[27px] md:left-1/2 top-0 bottom-0 w-[1px] bg-slate-200 dark:bg-zinc-800 transform md:-translate-x-1/2"></div>
             
-            <div className="space-y-16">
+            <div className="space-y-16 md:space-y-24">
               {journeyEvents.map((event, index) => (
-                <div key={index} className={`relative flex flex-col md:flex-row items-start ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                  <div className="absolute left-0 md:left-1/2 top-0 w-3 h-3 bg-primary rounded-full transform -translate-x-1/2 mt-1 z-10 hidden md:block shadow-[0_0_15px_rgba(0,212,255,0.5)]"></div>
-                  
-                  <div className={`w-full md:w-[45%] ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12'} pl-8 md:pl-0`}>
-                    <div className="flex items-center gap-4 mb-2">
-                       <span className="text-primary font-bold mono-font text-xl">{event.year}</span>
-                       <div className="h-[1px] flex-grow bg-primary/20 md:hidden"></div>
+                <div key={index} className={`group relative flex flex-col md:flex-row items-start ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+                  {/* Timeline Node (Interactive Glowing Dot) */}
+                  <div className="absolute left-[11px] md:left-1/2 top-1 w-[23px] h-[23px] transform -translate-x-1/2 z-10 transition-transform duration-500 group-hover:scale-150">
+                    <div className="w-full h-full bg-background-light dark:bg-background-dark rounded-full border-2 border-primary flex items-center justify-center group-hover:bg-primary/20 transition-all">
+                      <div className="w-1.5 h-1.5 bg-primary rounded-full shadow-[0_0_10px_rgba(0,212,255,1)] group-hover:scale-125 transition-transform"></div>
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold mono-font mb-4 tracking-tight">{event.title}</h3>
-                    <p className="text-slate-600 dark:text-slate-400 font-light leading-relaxed text-lg mb-4">
-                      {event.description}
-                    </p>
-                    {event.achievement && (
-                      <div className="inline-block px-4 py-2 bg-primary/5 border border-primary/20 text-primary text-xs uppercase tracking-widest mono-font font-bold">
-                        {event.achievement}
-                      </div>
-                    )}
+                  </div>
+                  
+                  {/* Event Content Container */}
+                  <div className={`w-full md:w-[45%] ${index % 2 === 0 ? 'md:pl-16' : 'md:pr-16'} pl-12 md:pl-0 transform transition-all duration-700 group-hover:-translate-y-2`}>
+                    <div className="flex items-center gap-4 mb-3">
+                       <span className="text-primary font-bold mono-font text-2xl tracking-tighter transition-all duration-500 group-hover:tracking-[0.1em]">{event.year}</span>
+                       <div className="h-[1px] flex-grow bg-primary/20 group-hover:bg-primary/50 transition-colors"></div>
+                    </div>
+                    
+                    <div className="bg-white dark:bg-zinc-900/50 border border-slate-100 dark:border-zinc-800/50 p-6 md:p-8 hover:border-primary/30 transition-all duration-500 shadow-sm hover:shadow-xl hover:shadow-primary/5">
+                      <h3 className="text-xl md:text-2xl font-bold mono-font mb-4 tracking-tight leading-tight group-hover:text-primary transition-colors">{event.title}</h3>
+                      <p className="text-slate-600 dark:text-slate-400 font-light leading-relaxed text-base md:text-lg mb-6">
+                        {event.description}
+                      </p>
+                      {event.achievement && (
+                        <div className="inline-flex items-center gap-3 px-4 py-2 bg-primary/5 border border-primary/20 text-primary text-[10px] md:text-xs uppercase tracking-widest mono-font font-bold transform transition-all duration-500 group-hover:scale-105 group-hover:bg-primary group-hover:text-white">
+                          <span className="material-icons-outlined text-sm">workspace_premium</span>
+                          {event.achievement}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
+            
+            {/* Bottom Gradient Overlay for Scroll Indication */}
+            <div className="sticky bottom-0 h-24 w-full bg-gradient-to-t from-background-light dark:from-background-dark to-transparent pointer-events-none opacity-80"></div>
           </div>
         </div>
       </section>
@@ -377,3 +434,4 @@ const Portfolio: React.FC = () => {
 };
 
 export default Portfolio;
+
