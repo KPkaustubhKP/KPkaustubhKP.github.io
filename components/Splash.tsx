@@ -1,11 +1,20 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface SplashProps {
   onEnter: () => void;
 }
 
 const Splash: React.FC<SplashProps> = ({ onEnter }) => {
+  useEffect(() => {
+    // Auto-enter after 4 seconds
+    const timer = setTimeout(() => {
+      onEnter();
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [onEnter]);
+
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-background-light dark:bg-background-dark flex flex-col items-center justify-center transition-colors duration-500">
       {/* Background Particles */}
@@ -51,17 +60,18 @@ const Splash: React.FC<SplashProps> = ({ onEnter }) => {
         >
           Kaustubh Pandey
         </button>
-        <div className="mt-4 flex justify-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+        <div className="mt-4 flex justify-center space-x-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
           <div className="w-1 h-1 rounded-full bg-primary/40 animate-pulse"></div>
           <div className="w-1 h-1 rounded-full bg-primary/60 animate-pulse delay-75"></div>
           <div className="w-1 h-1 rounded-full bg-primary/40 animate-pulse delay-150"></div>
         </div>
+        <p className="mt-6 text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500 animate-pulse block md:hidden">Entering in 4s...</p>
       </main>
 
       {/* Footer Copyright */}
       <div className="fixed bottom-12 left-1/2 -translate-x-1/2 pointer-events-none text-center">
         <p className="font-display text-[9px] uppercase tracking-[0.4em] text-slate-400 dark:text-slate-600 opacity-60">
-          VLSI & HARDWARE DESIGN PORTFOLIO © 2024
+          KAUSTUBH PANDEY PORTFOLIO © 2026
         </p>
       </div>
     </div>
