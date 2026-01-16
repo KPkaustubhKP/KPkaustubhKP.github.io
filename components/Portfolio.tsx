@@ -62,7 +62,7 @@ const Portfolio: React.FC = () => {
   const projects: Project[] = [
     {
       id: 3,
-      title: "PID_MOTOR_CONTROLLER",
+      title: "PID MOTOR CONTROLLER",
       category: "FPGA | VERILOG",
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800&h=1000",
       description: "Digital PID controller for DC motor speed regulation. Synthesized on FPGA using Vivado.",
@@ -90,13 +90,16 @@ const Portfolio: React.FC = () => {
         "Applied high-speed routing and impedance control for critical signal paths.",
         "Generated manufacturing Gerber files and coordinated with fabrication partners."
       ],
+      links: [
+        { label: "Github", url: "https://github.com/VSDSquadron" }
+      ],
       span: "md:col-span-7",
       aspect: "aspect-[4/5]",
       featured: true
     },
     {
       id: 4,
-      title: "4H-SiC_U-MOSFET",
+      title: "4H-SiC U-MOSFET",
       category: "TCAD | DEVICE PHYSICS",
       image: "https://images.unsplash.com/photo-1592659762303-90081d34b277?auto=format&fit=crop&q=80&w=800&h=800",
       description: "Research on high-voltage 4H-SiC trench U-MOSFETs achieving 556V breakdown voltage.",
@@ -109,15 +112,18 @@ const Portfolio: React.FC = () => {
     },
     {
       id: 5,
-      title: "PROJECT_MANAS_UGV",
+      title: "PROJECT MANAS",
       category: "HARDWARE | POWER SYSTEMS",
       image: "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?auto=format&fit=crop&q=80&w=1600&h=900",
-      description: "Hardware subsystem lead for an autonomous UGV platform.",
+      description: "Sensing and Automation member focusing on PCB design.",
       fullDetails: [
-        "Designed power distribution boards (PDB) for autonomous UGVs with robust thermal handling.",
-        "Implemented precise current sensing using current-sense ICs.",
+        "Designed power distribution boards (PDB) for autonomous UGVs.",
         "Developed motor and microcontroller interface boards.",
-        "Integrated CAN-bus communication for reliable subsystem messaging."
+        "Worked with Power Management using Matlab."
+        "Worked with drone Architecture and electronics."
+      ],
+      links: [
+        { label: "Website", url: "https://projectmanas.in/" }
       ],
       span: "md:col-span-12",
       aspect: "aspect-[16/9]"
@@ -180,7 +186,7 @@ const Portfolio: React.FC = () => {
     <div className={`min-h-screen bg-background-light dark:bg-background-dark transition-colors duration-500 ${(selectedProject || showResume) ? 'overflow-hidden' : ''}`}>
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 w-full z-50 p-8 flex justify-between items-center transition-all duration-300 ${scrolled ? 'bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md py-4' : 'bg-transparent'}`}>
-        <a href="#" className="text-xl font-bold tracking-tighter mono-font uppercase mix-blend-difference dark:text-white">Kaustubh.</a>
+        <a href="#" className="text-xl font-bold tracking-tighter mono-font uppercase mix-blend-difference dark:text-white">Kaustubh.KP</a>
         <div className="flex gap-8 items-center mono-font">
           <ThemeToggle />
           <a href="#about" className="hidden md:block text-xs uppercase tracking-widest hover:text-primary transition-colors">About</a>
