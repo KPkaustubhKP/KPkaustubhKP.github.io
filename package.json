@@ -1,25 +1,27 @@
 {
-  "name": "kaustubh-pandey-|-vlsi-&-hardware-design",
+  "name": "kp-portfolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && cp dist/index.html . && cp -r dist/assets . && git add . && git commit -m 'Deploy updates' && git push origin main"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "framer-motion": "^11.18.0",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "framer-motion": "^11.18.2",
+    "lucide-react": "^0.344.0"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^5.0.0",
-    "typescript": "~5.8.2",
-    "vite": "^6.2.0"
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.0",
+    "gh-pages": "^6.1.1",
+    "typescript": "^5.2.2",
+    "vite": "^6.0.0"
   }
 }

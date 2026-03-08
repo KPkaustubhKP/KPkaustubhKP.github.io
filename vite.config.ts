@@ -1,19 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './',
-  assetsInclude: ['**/*.pdf'],
+  // This ensures assets are loaded via relative paths
+  base: './', 
   build: {
     outDir: 'dist',
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          motion: ['framer-motion'],
-        }
-      }
-    }
+    // Ensures assets are generated in a predictable structure
+    assetsDir: 'assets',
   }
 })
