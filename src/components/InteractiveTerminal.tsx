@@ -652,6 +652,7 @@ const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
 
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const outputRef = useRef<HTMLDivElement>(null);
 
   const addLines = useCallback((...newLines: Line[]) => {
     setLines(prev => [...prev, ...newLines]);
@@ -684,7 +685,9 @@ const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
   }, [initialCommand, submit]);
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (outputRef.current) {
+      outputRef.current.scrollTop = outputRef.current.scrollHeight;
+    }
   }, [lines]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -764,7 +767,7 @@ const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
   return (
     <div
       className={`terminal-window flex flex-col ${compact ? 'h-[260px]' : 'h-[400px] md:h-[460px]'} ${className}`}
-      onClick={() => inputRef.current?.focus()}
+      onClick={() => inputRef.current?.focus({ preventScroll: true })}
     >
       {/* Chrome bar */}
       <div className="flex items-center gap-2 px-4 py-2.5 border-b border-primary/10 shrink-0 bg-black/60">
@@ -782,7 +785,7 @@ const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
       </div>
 
       {/* Output area */}
-      <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2">
+      <div ref={outputRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-2">
         <AnimatePresence initial={false}>
           {lines.map(line => (
             <motion.div
@@ -802,7 +805,7 @@ const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
             </motion.div>
           ))}
         </AnimatePresence>
-        <div ref={scrollRef} />
+        
       </div>
 
       {/* Input row */}
@@ -818,7 +821,7 @@ const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
           autoComplete="off"
           autoCapitalize="off"
           spellCheck={false}
-          autoFocus
+          autoFocus={false}
         />
         <span className="cursor-blink text-primary text-[10px] select-none">▋</span>
       </div>
