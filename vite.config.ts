@@ -1,14 +1,13 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite' // This line must exist
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  // Use './' to make all paths relative. This is the most compatible setting.
+  // Safest for GitHub Pages relative paths
   base: './', 
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    // This ensures clean builds
     emptyOutDir: true,
   }
 })
