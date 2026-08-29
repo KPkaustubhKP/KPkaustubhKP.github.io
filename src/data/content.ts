@@ -10,7 +10,7 @@ export const OWNER = {
   tagline: 'Building at the intersection of physics and logic — from transistors to autonomous systems.',
   shortBio: `Electronics & Communication student at MIT Manipal specializing in VLSI Design. I work across the full hardware stack — analog IC design in Cadence, digital RTL on FPGA, multi-layer PCBs in KiCad, and TCAD device simulation.`,
   longBio: `What started as curiosity about how chips work turned into a deep dive across the entire hardware design spectrum. Whether it's routing a differential pair, synthesizing RTL, or publishing research — I find the craft of making things exist in the physical world genuinely compelling.`,
-  education: 'B.Tech ECE (VLSI) · Manipal Institute of Technology · CGPA 7.54',
+  education: 'B.Tech ECE (VLSI) · Manipal Institute of Technology · CGPA 7.73',
   email: 'kaustubhofficial.kp@gmail.com',
   linkedin: 'https://www.linkedin.com/in/kaustubh-pandey-b42082218/',
   github: 'https://github.com/KPkaustubhKP',
